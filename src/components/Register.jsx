@@ -1,34 +1,31 @@
 import React from "react";
-import { useState,useRef } from "react";
-import "./Register.css"
-import { Link , useNavigate } from "react-router-dom";
+import { useState } from "react";
+import "./Register.css";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { appContext } from "../App";
 export default function Register() {
-  const {users,setUsers,user,setUser} = useContext(appContext);
-  const [msg, setMsg] = useState("");
-  const msgRef = useRef();
+  const { user, setUser, users, setUsers } = useContext(appContext);
+  const [msg, setMsg] = useState();
   const Navigate = useNavigate();
   const handleSubmit = () => {
-    if(users.find((value) => value.email === user.email)){
+    const found = users.find((value) => value.email === user.email);
+    if (found) {
       setMsg("User already exists");
-      msgRef.current.style.color = "red";
-    }
-    else
-    {
+    } else {
       setUsers([...users, user]);
       setMsg();
       Navigate("/");
     }
   };
   const handleDelete = (email) => {
-    setUsers(users.filter((value) => value.email != email));  
+    setUsers(users.filter((value) => value.email != email));
   };
   return (
     <div className="App-Register-Row">
       <div>
         <h2>Registration Form</h2>
-        <h4 ref={msgRef}>{msg}</h4>
+        {msg}
         <p>
           <input
             type="text"
@@ -58,12 +55,13 @@ export default function Register() {
         </p>
       </div>
       <div>
-        {
-          users && users.map((value,index)=>(
-            <li>{value.name}-{value.email}-{value.password}
-            <button onClick={() => {handleDelete(value.email)}}>Delete</button></li>
-          ))
-        }
+        {users &&
+          users.map((value, index) => (
+            <li>
+              {value.name}-{value.email}-{value.password}
+              <button onClick={() => handleDelete(value.email)}>Delete</button>
+            </li>
+          ))}
       </div>
     </div>
   );

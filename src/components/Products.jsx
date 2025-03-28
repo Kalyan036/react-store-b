@@ -1,25 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Products.css";
-import { useContext } from "react";
 import { appContext } from "../App";
+import { useContext } from "react";
 export default function Products() {
-  const {users,setUsers,user,setuser} = useContext(appContext)
-  const products = [
-    { id: 1, name: "Product 1", price: 56 },
-    { id: 2, name: "Product 2", price: 40 },
-    { id: 3, name: "Product 3", price: 35 },
-    { id: 4, name: "Product 4", price: 25 },
-    { id: 5, name: "Product 5", price: 95 },
-    { id: 6, name: "Product 6", price: 85 },
-  ];
-  return <div className="App-Products-Row">
-    <h4>Hello {user.email}</h4>
-    {products.map((value,index)=>(
+  const { user,cart,setCart,products } = useContext(appContext);
+  return(
+  <>
+    <h3>Hello {user.name}</h3>
+    <div className="App-Products-Row">
+      {products.map((value, index) => (
         <div key={index} className="App-Products-Box">
-            <h3>{value.name}</h3>
-            <h4>{value.price}</h4>
-            <button>Add to Cart</button>
+          <h3>{value.name}</h3>
+          <h4>{value.price}</h4>
+          <button>Add to Cart</button>
         </div>
-    ))}
-  </div>;
+      ))}
+    </div>
+    ;
+  </>
+  )
 }
