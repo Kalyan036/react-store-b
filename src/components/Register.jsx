@@ -2,9 +2,10 @@ import React from "react";
 import { useState,useRef } from "react";
 import "./Register.css"
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { appContext } from "../App";
 export default function Register() {
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({});
+  const {users,setUsers,user,setUser} = useContext(appContext);
   const [msg, setMsg] = useState("");
   const msgRef = useRef();
   const handleSubmit = () => {
